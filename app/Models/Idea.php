@@ -10,4 +10,8 @@ class Idea extends Model
     use HasFactory;
 
     protected $fillable = ['conteudo', 'likes'];
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }

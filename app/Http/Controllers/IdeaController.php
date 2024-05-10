@@ -7,9 +7,7 @@ use App\Models\Idea;
 
 class IdeaController extends Controller
 {
-    public function show($id){
-
-        $idea = Idea::findOrFail($id);
+    public function show(Idea $idea){
 
         return view('ideas.show', compact('idea'));
     }
