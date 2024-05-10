@@ -17,10 +17,10 @@ class IdeaController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'idea' => 'required'
+            'conteudo' => 'required'
         ]);
 
-        $conteudo = $request->get('idea');
+        $conteudo = $request->get('conteudo');
 
         Idea::create([
             'conteudo' => $conteudo
@@ -41,6 +41,18 @@ class IdeaController extends Controller
         $idea = Idea::findOrFail($id);
         $editing = true;
 
-        return view('ideas.edit', compact('idea', 'editing'));
+        return view('ideas.show', compact('idea', 'editing'));
+    }
+
+    public function update(Idea $idea){
+
+        request()->validate([
+            'conteudo' => 'required'
+        ]);
+
+        $idea->conteudo = request()->get('conteudo', '');
+        $idea->save();
+
+        return redirect()->route('idea.show', $idea->id)->with('success', 'Idea updated successfully');
     }
 }
