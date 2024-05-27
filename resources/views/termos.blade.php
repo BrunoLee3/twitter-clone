@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-    <h1>Termos</h1>
+    <h1>terms</h1>
     <div>
         <div>
             <p>
