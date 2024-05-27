@@ -12,31 +12,32 @@ class IdeaController extends Controller
         return view('ideas.show', compact('idea'));
     }
 
-    public function store(Request $request){
+    public function store(){
 
-        $request->validate([
-            'conteudo' => 'required'
+        $validated = request()->validate([
+            'content' => 'required|min:3|max:240'
         ]);
 
-        $conteudo = $request->get('conteudo');
+        $validated['user_id'] = auth()->id();
 
-        Idea::create([
-            'conteudo' => $conteudo
-        ]);
+        Idea::create($validated);
 
         return redirect()->route('dashboard')->with('success', 'Idea created successfully');
     }
 
-    public function destroy($id){
+    public function destroy(Idea $idea){
 
-        Idea::destroy($id);
+    
+
+        $idea->delete();
 
         return redirect()->route('dashboard')->with('success', 'Idea deleted successfully');
     }
 
-    public function edit($id){
+    public function edit(Idea $idea){
+        
+ 
 
-        $idea = Idea::findOrFail($id);
         $editing = true;
 
         return view('ideas.show', compact('idea', 'editing'));
@@ -44,11 +45,12 @@ class IdeaController extends Controller
 
     public function update(Idea $idea){
 
+
         request()->validate([
-            'conteudo' => 'required'
+            'content' => 'required'
         ]);
 
-        $idea->conteudo = request()->get('conteudo', '');
+        $idea->content = request()->get('content', '');
         $idea->save();
 
         return redirect()->route('idea.show', $idea->id)->with('success', 'Idea updated successfully');

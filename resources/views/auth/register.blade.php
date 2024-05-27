@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('conteudo')
+@section('content')
     <div class="row justify-content-center">
         <div class="col-12 col-sm-8 col-md-6">
             <form class="form mt-5" action="{{ route('register') }}" method="post">

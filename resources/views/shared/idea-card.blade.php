@@ -3,19 +3,21 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Mario" alt="Mario Avatar">
+                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $idea->user->name }}"
+                    alt="{{ $idea->user->name }}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="#"> Mario
-                        </a></h5>
+                    <h5 class="card-title mb-0"><a href="#"> {{ $idea->user->name }} </a></h5>
                 </div>
             </div>
             <div>
                 <form action="{{ route('idea.destroy', $idea->id) }}" method="POST">
                     @csrf
                     @method('delete')
-                    <a class="mx-2" href="{{ route('idea.edit', $idea->id) }}">Edit</a>
                     <a class="m-1" href="{{ route('idea.show', $idea->id) }}">View</a>
-                    <button class="btn btn-danger btn-sm">X</button>
+                    @if (auth()->id() === $idea->user_id)
+                        <a class="mx-2" href="{{ route('idea.edit', $idea->id) }}">Edit</a>
+                        <button class="btn btn-danger btn-sm">X</button>
+                    @endif
                 </form>
 
             </div>
@@ -27,8 +29,8 @@
                 @csrf
                 @method('put')
                 <div class="mb-3">
-                    <textarea class="form-control" id="conteudo" name="conteudo" rows="3">{{$idea->conteudo}}</textarea>
-                    @error('conteudo')
+                    <textarea class="form-control" id="content" name="content" rows="3">{{ $idea->content }}</textarea>
+                    @error('content')
                         <span class="d-block fs-6 text-danger"> {{ $message }} </span>
                     @enderror
                 </div>
@@ -38,7 +40,7 @@
             </form>
         @else
             <p class="fs-6 fw-light text-muted">
-                {{ $idea->conteudo }}
+                {{ $idea->content }}
             </p>
         @endif
         <div class="d-flex justify-content-between">

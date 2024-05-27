@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('conteudo')
+@section('content')
     <h1>Termos</h1>
     <div>
         <div>

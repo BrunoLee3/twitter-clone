@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('conteudo')
+@section('content')
     <div class="row">
         <div class="col-3">
             @include('shared.left-side-bar')
