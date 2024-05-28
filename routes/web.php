@@ -27,8 +27,10 @@ Route::resource('idea', IdeaController::class)->only(['show']);
 //comments route
 Route::resource('idea.comments', CommentController::class)->only(['store'])->middleware('auth');
 
-//profile route
+//users route
 Route::resource('users', UserController::class)->only(['show', 'edit', 'update'])->middleware('auth');
+
+Route::get('profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
 
 //terms route
 Route::get('/terms', function(){
